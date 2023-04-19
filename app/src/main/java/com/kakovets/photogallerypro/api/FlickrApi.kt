@@ -1,7 +1,9 @@
 package com.kakovets.photogallerypro.api
 
-import retrofit2.Call
+import com.kakovets.photogallerypro.GalleryItem
+import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface FlickrApi {
     @GET(
@@ -11,5 +13,8 @@ interface FlickrApi {
                 "&nojsoncallback=1" +
                 "&extras=url_s"
     )
-    fun fetchPhotos(): Call<PhotoResponse>
+    suspend fun getItems(
+        @Query("page") page: Int,
+        @Query("per_page") pageSize: Int
+    ): Response<List<GalleryItem>>
 }

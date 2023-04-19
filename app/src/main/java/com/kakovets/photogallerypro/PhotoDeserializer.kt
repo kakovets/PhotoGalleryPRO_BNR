@@ -3,15 +3,15 @@ package com.kakovets.photogallerypro
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
-import com.kakovets.photogallerypro.api.PhotoResponse
 import java.lang.reflect.Type
 
-class PhotoDeserializer: JsonDeserializer<PhotoResponse> {
+class PhotoDeserializer: JsonDeserializer<List<GalleryItem>> {
+    var n = 0
     override fun deserialize(
         json: JsonElement,
         typeOfT: Type?,
         context: JsonDeserializationContext?
-    ): PhotoResponse {
+    ): List<GalleryItem> {
         val jobject = json.asJsonObject
         val jphotos = jobject.getAsJsonObject("photos")
         val jphotoArray = jphotos.getAsJsonArray("photo")
@@ -19,11 +19,11 @@ class PhotoDeserializer: JsonDeserializer<PhotoResponse> {
         jphotoArray.forEach { item ->
             val gItem = GalleryItem(
                 title = item.asJsonObject.get("title").asString,
-                id = item.asJsonObject.get("id").asString,
+                id = n++,
                 url = item.asJsonObject.get("url_s").asString
             )
             galleryList.add(gItem)
         }
-        return PhotoResponse(galleryList)
+        return galleryList
     }
 }

@@ -1,13 +1,9 @@
 package com.kakovets.photogallerypro
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 
 class PhotoGalleryViewModel: ViewModel() {
-
-    val galleryItemViewModel: LiveData<List<GalleryItem>>
-
-    init {
-        galleryItemViewModel = FlickrFetchr().fetchPhotos()
-    }
+    val pagingGalleryItemViewModel: Flow<PagingData<GalleryItem>> = FlickrFetchr().getItems()
 }
