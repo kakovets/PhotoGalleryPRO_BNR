@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.coroutines.flow.collectLatest
@@ -34,7 +34,8 @@ class PhotoGalleryFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_photo_gallery, container, false)
         recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+        val columns = resources.getInteger(R.integer.num_columns)
+        recyclerView.layoutManager = GridLayoutManager(context, columns)
         return view
     }
 
